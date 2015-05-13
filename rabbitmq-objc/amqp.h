@@ -278,6 +278,7 @@ AMQP_BEGIN_DECLS
 # define AMQP_VERSION_STRING AMQ_VERSION_STRING "-pre"
 #endif
 
+#define AMQ_PLATFORM "iOS"
 
 /**
  * Returns the rabbitmq-c version as a packed integer.
@@ -634,7 +635,9 @@ typedef struct amqp_rpc_reply_t_ {
  * \since v0.1
  */
 typedef enum amqp_sasl_method_enum_ {
-  AMQP_SASL_METHOD_PLAIN = 0      /**< the PLAIN SASL method for authentication to the broker */
+  AMQP_SASL_METHOD_UNDEFINED = -1, /**< Invalid SASL method */
+  AMQP_SASL_METHOD_PLAIN = 0,      /**< the PLAIN SASL method for authentication to the broker */
+  AMQP_SASL_METHOD_EXTERNAL = 1    /**< the EXTERNAL SASL method for authentication to the broker */
 } amqp_sasl_method_enum;
 
 /**
@@ -703,7 +706,10 @@ typedef enum amqp_status_enum_
                                                         closed */
   AMQP_STATUS_SOCKET_INUSE =              -0x0012, /**< Underlying socket is
                                                         already open */
-  _AMQP_STATUS_NEXT_VALUE =               -0x0013, /**< Internal value */
+  AMQP_STATUS_BROKER_UNSUPPORTED_SASL_METHOD = -0x0013, /**< Broker does not
+                                                          support the requested
+                                                          SASL mechanism */
+  _AMQP_STATUS_NEXT_VALUE =               -0x0014, /**< Internal value */
 
   AMQP_STATUS_TCP_ERROR =                 -0x0100, /**< A generic TCP error
                                                         occurred */

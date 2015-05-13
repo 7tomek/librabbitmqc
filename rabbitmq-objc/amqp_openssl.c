@@ -36,10 +36,10 @@
 #include "threads.h"
 
 #include <ctype.h>
-#include "openssl/conf.h"
-#include "openssl/err.h"
-#include "openssl/ssl.h"
-#include "openssl/x509v3.h"
+#include <openssl/conf.h>
+#include <openssl/err.h>
+#include <openssl/ssl.h>
+#include <openssl/x509v3.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -325,13 +325,18 @@ amqp_ssl_socket_open(void *base, const char *host, int port, struct timeval *tim
   }
 
   result = SSL_get_verify_result(self->ssl);
+  printf("openssl version %s", SSLeay_version(SSLEAY_VERSION));
+  printf("SSL_get_verify_result: %ld \n", result);
   if (X509_V_OK != result) {
     self->internal_error = result;
     status = AMQP_STATUS_SSL_PEER_VERIFY_FAILED;
     goto error_out3;
   }
+
+  printf("self verify: %i %s self: %s\n", self->verify, host, self);
   if (self->verify) {
     int verify_status = amqp_ssl_socket_verify_hostname(self, host);
+    printf("status verify: %i \n", verify_status);
     if (verify_status) {
       self->internal_error = 0;
       status = AMQP_STATUS_SSL_HOSTNAME_VERIFY_FAILED;

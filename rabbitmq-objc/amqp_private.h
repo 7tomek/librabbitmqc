@@ -43,7 +43,6 @@
 
 #define AMQ_COPYRIGHT "Copyright (c) 2007-2014 VMWare Inc, Tony Garnock-Jones," \
                       " and Alan Antonuk."
-#define AMQ_PLATFORM  "iOS"
 
 #include "amqp.h"
 #include "amqp_framing.h"
@@ -287,7 +286,7 @@ static inline void *amqp_offset(void *data, size_t offset)
 #endif
 
 #if defined(AMQP_LITTLE_ENDIAN)
-/*
+
 #define DECLARE_XTOXLL(func)                        \
   static inline uint64_t func##ll(uint64_t val)     \
   {                                                 \
@@ -302,9 +301,9 @@ static inline void *amqp_offset(void *data, size_t offset)
     u.halves[1] = func##l(t);                       \
     return u.whole;                                 \
   }
-*/
+
 #elif defined(AMQP_BIG_ENDIAN)
-/*
+
 #define DECLARE_XTOXLL(func)                        \
   static inline uint64_t func##ll(uint64_t val)     \
   {                                                 \
@@ -317,7 +316,7 @@ static inline void *amqp_offset(void *data, size_t offset)
     u.halves[1] = func##l(u.halves[1]);             \
     return u.whole;                                 \
   }
-*/
+
 #else
 # error Endianness not known
 #endif

@@ -59,14 +59,14 @@
 #ifndef HEADER_BIO_H
 # define HEADER_BIO_H
 
-# include "openssl/e_os2.h"
+# include <openssl/e_os2.h>
 
 # ifndef OPENSSL_NO_FP_API
 #  include <stdio.h>
 # endif
 # include <stdarg.h>
 
-# include "openssl/crypto.h"
+# include <openssl/crypto.h>
 
 # ifndef OPENSSL_NO_SCTP
 #  ifndef OPENSSL_SYS_VMS
@@ -174,7 +174,6 @@ extern "C" {
 
 # define BIO_CTRL_DGRAM_SET_NEXT_TIMEOUT   45/* Next DTLS handshake timeout
                                               * to adjust socket timeouts */
-# define BIO_CTRL_DGRAM_SET_DONT_FRAG      48
 
 # define BIO_CTRL_DGRAM_GET_MTU_OVERHEAD   49
 
@@ -726,9 +725,6 @@ int BIO_dump_indent(BIO *b, const char *bytes, int len, int indent);
 int BIO_dump_fp(FILE *fp, const char *s, int len);
 int BIO_dump_indent_fp(FILE *fp, const char *s, int len, int indent);
 # endif
-int BIO_hex_string(BIO *out, int indent, int width, unsigned char *data,
-                   int datalen);
-
 struct hostent *BIO_gethostbyname(const char *name);
 /*-
  * We might want a thread-safe interface too:
@@ -765,8 +761,8 @@ int BIO_dgram_sctp_wait_for_dry(BIO *b);
 int BIO_dgram_sctp_msg_waiting(BIO *b);
 # endif
 BIO *BIO_new_fd(int fd, int close_flag);
-BIO *BIO_new_connect(const char *host_port);
-BIO *BIO_new_accept(const char *host_port);
+BIO *BIO_new_connect(char *host_port);
+BIO *BIO_new_accept(char *host_port);
 
 int BIO_new_bio_pair(BIO **bio1, size_t writebuf1,
                      BIO **bio2, size_t writebuf2);

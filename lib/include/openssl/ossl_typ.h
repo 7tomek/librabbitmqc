@@ -59,7 +59,7 @@
 extern "C" {
 #endif
 
-# include "openssl/e_os2.h"
+# include <openssl/e_os2.h>
 
 # ifdef NO_ASN1_TYPEDEFS
 #  define ASN1_INTEGER            ASN1_STRING
@@ -99,8 +99,6 @@ typedef struct asn1_string_st ASN1_STRING;
 typedef int ASN1_BOOLEAN;
 typedef int ASN1_NULL;
 # endif
-
-typedef struct asn1_object_st ASN1_OBJECT;
 
 typedef struct ASN1_ITEM_st ASN1_ITEM;
 typedef struct asn1_pctx_st ASN1_PCTX;
