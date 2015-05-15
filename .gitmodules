@@ -1,3 +1,6 @@
 [submodule "rabbitmq-c"]
 	path = rabbitmq-c
 	url = https://github.com/alanxz/rabbitmq-c.git
+[submodule "rabbitmqc"]
+	path = rabbitmqc
+	url = https://github.com/7tomek/rabbitmqc
