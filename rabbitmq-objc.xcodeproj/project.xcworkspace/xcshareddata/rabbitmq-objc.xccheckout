@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7A3B6E8F-E8C4-4AE1-8F51-B0BA6F7F123C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>rabbitmq-objc</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>221EA79D6B5177AF5775E8F0D7CEC98A176B3326</key>
+		<string>ssh://git.open-rnd.net:29418/open-rnd.ios.rabbitmqc</string>
+		<key>76B1A3C2D3CEF6EC0EFD220A9FEB03623989EDE5</key>
+		<string>https://github.com/alanxz/rabbitmq-c.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>rabbitmq-objc.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>221EA79D6B5177AF5775E8F0D7CEC98A176B3326</key>
+		<string>../..</string>
+		<key>76B1A3C2D3CEF6EC0EFD220A9FEB03623989EDE5</key>
+		<string>../..rabbitmq-c/</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://git.open-rnd.net:29418/open-rnd.ios.rabbitmqc</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>221EA79D6B5177AF5775E8F0D7CEC98A176B3326</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>76B1A3C2D3CEF6EC0EFD220A9FEB03623989EDE5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>rabbitmq-c</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>221EA79D6B5177AF5775E8F0D7CEC98A176B3326</string>
+			<key>IDESourceControlWCCName</key>
+			<string>rabbitmq-objc</string>
+		</dict>
+	</array>
+</dict>
+</plist>
