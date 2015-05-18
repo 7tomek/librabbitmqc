@@ -328,10 +328,12 @@ static inline void *amqp_offset(void *data, size_t offset)
 # error Endianness not known
 #endif
 
+/*
 #ifndef HAVE_HTONLL
 DECLARE_XTOXLL(hton)
 DECLARE_XTOXLL(ntoh)
 #endif
+*/
 
 DECLARE_CODEC_BASE_TYPE(8, (uint8_t), (uint8_t))
 DECLARE_CODEC_BASE_TYPE(16, htons, ntohs)
