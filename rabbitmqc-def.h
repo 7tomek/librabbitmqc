@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 OpenSource. All rights reserved.
 //
 
-#ifndef rabbitmq_objc_rabbitmqc_def_pch
-#define rabbitmq_objc_rabbitmqc_def_pch
+#ifndef rabbitmq_objc_rabbitmqc_def_h
+#define rabbitmq_objc_rabbitmqc_def_h
 
 #define HAVE_HTONLL 1
 #define AMQ_PLATFORM "iOS"

@@ -114,7 +114,7 @@
 		A9AFCB291B05CB2100C97EBA /* stdint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stdint.h; sourceTree = "<group>"; };
 		A9AFCB2A1B05CB2100C97EBA /* threads.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = threads.c; sourceTree = "<group>"; };
 		A9AFCB2B1B05CB2100C97EBA /* threads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = threads.h; sourceTree = "<group>"; };
-		A9AFCB461B05D95C00C97EBA /* rabbitmqc-def.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "rabbitmqc-def.pch"; sourceTree = "<group>"; };
+		A9AFCB461B05D95C00C97EBA /* rabbitmqc-def.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "rabbitmqc-def.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +133,7 @@
 		84C8F35F1AC07D73008095F9 = {
 			isa = PBXGroup;
 			children = (
-				A9AFCB461B05D95C00C97EBA /* rabbitmqc-def.pch */,
+				A9AFCB461B05D95C00C97EBA /* rabbitmqc-def.h */,
 				A9AFCB091B05CB2100C97EBA /* librabbitmq */,
 				842681D71ACD880200F78EF1 /* libcrypto.a */,
 				842681D81ACD880200F78EF1 /* libssl.a */,
@@ -356,7 +356,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "rabbitmqc-def.pch";
+				GCC_PREFIX_HEADER = "rabbitmqc-def.h";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -406,7 +406,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "rabbitmqc-def.pch";
+				GCC_PREFIX_HEADER = "rabbitmqc-def.h";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
