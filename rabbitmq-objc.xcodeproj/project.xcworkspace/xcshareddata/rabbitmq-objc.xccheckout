@@ -22,7 +22,7 @@
 		<key>221EA79D6B5177AF5775E8F0D7CEC98A176B3326</key>
 		<string>../..</string>
 		<key>76B1A3C2D3CEF6EC0EFD220A9FEB03623989EDE5</key>
-		<string>../..rabbitmq-c/</string>
+		<string>../..rabbitmq-c</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://git.open-rnd.net:29418/open-rnd.ios.rabbitmqc</string>
@@ -36,17 +36,17 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>76B1A3C2D3CEF6EC0EFD220A9FEB03623989EDE5</string>
+			<string>221EA79D6B5177AF5775E8F0D7CEC98A176B3326</string>
 			<key>IDESourceControlWCCName</key>
-			<string>rabbitmq-c</string>
+			<string>rabbitmq-objc</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>221EA79D6B5177AF5775E8F0D7CEC98A176B3326</string>
+			<string>76B1A3C2D3CEF6EC0EFD220A9FEB03623989EDE5</string>
 			<key>IDESourceControlWCCName</key>
-			<string>rabbitmq-objc</string>
+			<string>rabbitmq-objcrabbitmq-c</string>
 		</dict>
 	</array>
 </dict>
