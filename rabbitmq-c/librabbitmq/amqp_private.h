@@ -44,6 +44,8 @@
 #define AMQ_COPYRIGHT "Copyright (c) 2007-2014 VMWare Inc, Tony Garnock-Jones," \
                       " and Alan Antonuk."
 
+#define AMQ_PLATFORM "iOS"
+
 #include "amqp.h"
 #include "amqp_framing.h"
 #include <string.h>
@@ -327,13 +329,6 @@ static inline void *amqp_offset(void *data, size_t offset)
 #else
 # error Endianness not known
 #endif
-
-/*
-#ifndef HAVE_HTONLL
-DECLARE_XTOXLL(hton)
-DECLARE_XTOXLL(ntoh)
-#endif
-*/
 
 DECLARE_CODEC_BASE_TYPE(8, (uint8_t), (uint8_t))
 DECLARE_CODEC_BASE_TYPE(16, htons, ntohs)
