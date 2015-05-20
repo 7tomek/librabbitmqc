@@ -38,15 +38,8 @@
 #include "config.h"
 #endif
 
-#ifdef _MSC_VER
-/* MSVC complains about sprintf being deprecated in favor of sprintf_s */
-# define _CRT_SECURE_NO_WARNINGS
-/* MSVC complains about strdup being deprecated in favor of _strdup */
-# define _CRT_NONSTDC_NO_DEPRECATE
-#endif
-
 #include "amqp_private.h"
-#include "amqp_time.h"
+#include "amqp_timer.h"
 #include <assert.h>
 #include <stdarg.h>
 #include <stdint.h>
@@ -198,17 +191,19 @@ int amqp_basic_publish(amqp_connection_state_t state,
   m.immediate = immediate;
   m.ticket = 0;
 
-  /* TODO(alanxz): this heartbeat check is happening in the wrong place, it
-   * should really be done in amqp_try_send/writev */
-  res = amqp_time_has_past(state->next_recv_heartbeat);
-  if (AMQP_STATUS_TIMER_FAILURE == res) {
-    return res;
-  } else if (AMQP_STATUS_TIMEOUT == res) {
-    res = amqp_try_recv(state);
-    if (AMQP_STATUS_TIMEOUT == res) {
-      return AMQP_STATUS_HEARTBEAT_TIMEOUT;
-    } else if (AMQP_STATUS_OK != res) {
-      return res;
+  if (amqp_heartbeat_enabled(state)) {
+    uint64_t current_timestamp = amqp_get_monotonic_timestamp();
+    if (0 == current_timestamp) {
+      return AMQP_STATUS_TIMER_FAILURE;
+    }
+
+    if (current_timestamp > state->next_recv_heartbeat) {
+      res = amqp_try_recv(state, current_timestamp);
+      if (AMQP_STATUS_TIMEOUT == res) {
+        return AMQP_STATUS_HEARTBEAT_TIMEOUT;
+      } else if (AMQP_STATUS_OK != res) {
+        return res;
+      }
     }
   }
 

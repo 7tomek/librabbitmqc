@@ -22,9 +22,7 @@
  * DEALINGS IN THE SOFTWARE.
  */
 #include "amqp.h"
-#include "amqp_time.h"
-#include <assert.h>
-#include <limits.h>
+#include "amqp_timer.h"
 #include <string.h>
 
 #if (defined(_WIN32) || defined(__WIN32__) || defined(WIN32))
@@ -106,128 +104,37 @@ amqp_get_monotonic_timestamp(void)
 }
 #endif /* AMQP_POSIX_TIMER_API */
 
-int amqp_time_from_now(amqp_time_t *time, struct timeval *timeout) {
-  uint64_t now_ns;
-  uint64_t delta_ns;
+int
+amqp_timer_update(amqp_timer_t *timer, struct timeval *timeout)
+{
+  if (0 == timer->current_timestamp) {
+    timer->current_timestamp = amqp_get_monotonic_timestamp();
 
-  assert(NULL != time);
+    if (0 == timer->current_timestamp) {
+      return AMQP_STATUS_TIMER_FAILURE;
+    }
 
-  if (NULL == timeout) {
-    *time = amqp_time_infinite();
-    return AMQP_STATUS_OK;
-  }
-  if (0 == timeout->tv_sec && 0 == timeout->tv_usec) {
-    *time = amqp_time_immediate();
-    return AMQP_STATUS_OK;
-  }
+    timer->timeout_timestamp = timer->current_timestamp +
+                               (uint64_t)timeout->tv_sec * AMQP_NS_PER_S +
+                               (uint64_t)timeout->tv_usec * AMQP_NS_PER_US;
 
-  if (timeout->tv_sec < 0 || timeout->tv_usec < 0) {
-    return AMQP_STATUS_INVALID_PARAMETER;
-  }
+  } else {
+    timer->current_timestamp = amqp_get_monotonic_timestamp();
 
-  delta_ns = (uint64_t)timeout->tv_sec * AMQP_NS_PER_S +
-             (uint64_t)timeout->tv_usec * AMQP_NS_PER_US;
-
-  now_ns = amqp_get_monotonic_timestamp();
-  if (0 == now_ns) {
-    return AMQP_STATUS_TIMER_FAILURE;
+    if (0 == timer->current_timestamp) {
+      return AMQP_STATUS_TIMER_FAILURE;
+    }
   }
 
-  time->time_point_ns = now_ns + delta_ns;
-  if (now_ns > time->time_point_ns || delta_ns > time->time_point_ns) {
-    return AMQP_STATUS_INVALID_PARAMETER;
-  }
-
-  return AMQP_STATUS_OK;
-}
-
-int amqp_time_s_from_now(amqp_time_t *time, int seconds) {
-  uint64_t now_ns;
-  uint64_t delta_ns;
-  assert(NULL != time);
-
-  if (0 >= seconds) {
-    *time = amqp_time_infinite();
-    return AMQP_STATUS_OK;
-  }
-
-  now_ns = amqp_get_monotonic_timestamp();
-  if (0 == now_ns) {
-    return AMQP_STATUS_TIMER_FAILURE;
-  }
-
-  delta_ns = (uint64_t)seconds * AMQP_NS_PER_S;
-  time->time_point_ns = now_ns + delta_ns;
-  if (now_ns > time->time_point_ns || delta_ns > time->time_point_ns) {
-    return AMQP_STATUS_INVALID_PARAMETER;
-  }
-
-  return AMQP_STATUS_OK;
-}
-
-amqp_time_t amqp_time_immediate(void) {
-  amqp_time_t time;
-  time.time_point_ns = 0;
-  return time;
-}
-
-amqp_time_t amqp_time_infinite(void) {
-  amqp_time_t time;
-  time.time_point_ns = UINT64_MAX;
-  return time;
-}
-
-int amqp_time_ms_until(amqp_time_t time) {
-  uint64_t now_ns;
-  uint64_t delta_ns;
-  int left_ms;
-
-  if (UINT64_MAX == time.time_point_ns) {
-    return -1;
-  }
-  if (0 == time.time_point_ns) {
-    return 0;
-  }
-
-  now_ns = amqp_get_monotonic_timestamp();
-  if (0 == now_ns) {
-    return AMQP_STATUS_TIMER_FAILURE;
-  }
-
-  if (now_ns >= time.time_point_ns) {
-    return 0;
-  }
-
-  delta_ns = time.time_point_ns - now_ns;
-  left_ms = (int)(delta_ns / AMQP_NS_PER_MS);
-
-  return left_ms;
-}
-
-int amqp_time_has_past(amqp_time_t time) {
-  uint64_t now_ns;
-  if (UINT64_MAX == time.time_point_ns) {
-    return AMQP_STATUS_OK;
-  }
-
-  now_ns = amqp_get_monotonic_timestamp();
-  if (0 == now_ns) {
-    return AMQP_STATUS_TIMER_FAILURE;
-  }
-
-  if (now_ns > time.time_point_ns) {
+  if (timer->current_timestamp > timer->timeout_timestamp) {
     return AMQP_STATUS_TIMEOUT;
   }
+
+  timer->ns_until_next_timeout = timer->timeout_timestamp - timer->current_timestamp;
+
+  memset(&timer->tv, 0, sizeof(struct timeval));
+  timer->tv.tv_sec = timer->ns_until_next_timeout / AMQP_NS_PER_S;
+  timer->tv.tv_usec = (timer->ns_until_next_timeout % AMQP_NS_PER_S) / AMQP_NS_PER_US;
+
   return AMQP_STATUS_OK;
-}
-
-amqp_time_t amqp_time_first(amqp_time_t l, amqp_time_t r) {
-  if (l.time_point_ns < r.time_point_ns) {
-    return l;
-  }
-  return r;
-}
-
-int amqp_time_equal(amqp_time_t l, amqp_time_t r) {
-  return l.time_point_ns == r.time_point_ns;
 }
