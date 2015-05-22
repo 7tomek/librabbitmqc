@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "librabbitmqc"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "librabbitmqc for iOS"
   s.description  = "librabbitmqc for iOS (armv7,arm64,i386,x86_64)."
   s.homepage     = "http://github.com/"
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   'rabbitmq-c/librabbitmq/amqp_framing.c', 'rabbitmq-c/librabbitmq/amqp_hostcheck.c',
   'rabbitmq-c/librabbitmq/amqp_mem.c', 'rabbitmq-c/librabbitmq/amqp_openssl.c', 'rabbitmq-c/librabbitmq/amqp_socket.c',
   'rabbitmq-c/librabbitmq/amqp_table.c', 'rabbitmq-c/librabbitmq/amqp_tcp_socket.c',
-  'rabbitmq-c/librabbitmq/amqp_timer.c', 'rabbitmq-c/librabbitmq/amqp_url.c'
+  'rabbitmq-c/librabbitmq/amqp_time.c', 'rabbitmq-c/librabbitmq/amqp_url.c'
  
   s.ios.public_header_files = 'lib/include/**/*.h', 'rabbitmqc-def.h', 'rabbitmq-c/librabbitmq/*.h', 'rabbitmq-c/librabbitmq/unix/threads.h'
   s.ios.header_dir          = 'rabbitmq-objc'
