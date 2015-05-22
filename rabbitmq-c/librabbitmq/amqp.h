@@ -161,6 +161,7 @@ typedef _W64 int ssize_t;
 
 #include <stddef.h>
 #include <stdint.h>
+#include "rabbitmqc-def.h"
 
 struct timeval;
 
